@@ -4,6 +4,8 @@ import { Query, graphql, Mutation } from 'react-apollo'
 import PostList from './PostList'
 import NewPostForm from './NewPostForm'
 
+
+
 const postsQuery = gql`
 query listPost{
     posts{
@@ -17,6 +19,30 @@ query listPost{
   }
 
 }
+`
+
+const _posFragment = gql`
+    fragment postFragment on Post{
+        id
+        title
+        tags{
+            name
+        }
+        content
+    }
+`
+
+const postCreatedSubscription = gql`
+subscription postCreated{
+postCreated {
+      id
+      title
+      tags {
+        name
+      }
+      content
+    }
+  }
 `
 
 const createPostMutation = gql`
@@ -49,6 +75,10 @@ mutation createPost($postData: PostData!) {
 }*/
 
 class GuestBookApollo extends React.Component {
+    componentDidMount() {
+        this.props.subscribe()
+    }
+
     render() {
         if (this.props.loading) {
             return <div>Loading...</div>
@@ -88,7 +118,22 @@ export default graphql(postsQuery, {
     props: (result) => {
         return {
             posts: result.data.posts,
-            loading: result.data.loading
+            loading: result.data.loading,
+            subscribe: () => {
+                result.data.subscribeToMore({
+                    document: postCreatedSubscription,
+                    updateQuery: (prev, { subscriptionData }) => {
+                        console.log(prev)
+                        if (!subscriptionData.data.postCreated) return prev
+
+                        const postCreated = subscriptionData.data.postCreated
+
+                        return Object.assign({}, prev, {
+                            posts: [...prev.posts, postCreated]
+                        })
+                    }
+                })
+            }
         }
     }
 })(GuestBookApollo)

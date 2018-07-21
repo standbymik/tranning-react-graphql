@@ -75,6 +75,10 @@ class loginForm extends React.Component {
                                     }
                                 })
 
+                                if(!result.data.token){
+                                    return alert('Login Failed')
+                                }
+
                                 this.props.onLoginSuccess(result.data.token)
                             }}>
                                 <input type="text" value={this.state.username} placeholder="username" className="loginUser" onChange={this.username} />
