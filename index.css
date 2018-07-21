@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.login {
+  border-radius: 20px;
+  box-shadow:0px 0px 10px #000;
+  text-align: center;
+  padding:20px;
+  margin-bottom:20px;
+  display:inline-block;
+}
+
+.btnLogin{
+  padding:5px; background:#ccffff;
+  color:#ff00ff;
+  margin-left:5px;
+  transform: rotate(10deg);
+}
+
+.loginUser{
+  transform:rotate(-10deg);
+  padding:10px;
+  transition:1s;
+}
+.loginUser:hover{
+  transform: scale(1.1);
+}
+
+.loginPass{
+  transform:rotate(10deg);
+  padding:10px;
+  transition:1s;
+}
+
+.loginPass:hover{
+  transform: scale(1.1);
+}
