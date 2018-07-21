@@ -26,8 +26,8 @@ class MyApp extends App {
                             <Link href="/">
                                 <a>Home</a>
                             </Link>
-                            <Link href="/about">
-                                <a>About</a>
+                            <Link href="/login">
+                                <a>login</a>
                             </Link>
                             <Component {...pageProps} />
                         </div>

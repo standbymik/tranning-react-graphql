@@ -33,6 +33,7 @@ export default (App) => {
               Component={Component}
               router={router}
               apolloClient={apollo}
+              reduxStore={store}
             />
           )
         } catch (error) {
@@ -61,8 +62,8 @@ export default (App) => {
     constructor(props) {
       super(props)
       //this.apolloClient = createApolloClient(props.apolloState)
-      this.reduxState = createReduxStore(props.reduxState)
-      this.apolloClient = createApolloClient(undefined, props.apolloState)
+      this.reduxStore = createReduxStore(props.reduxState)
+      this.apolloClient = createApolloClient(this.reduxState, props.apolloState)
     }
 
     render() {
